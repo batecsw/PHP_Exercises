@@ -8,8 +8,7 @@
 </head>
 <body>
 <?php
-    echo '<h1>This is my parent exercises folder<h1>'
+    echo '<h1>This is my parent exercises folder<h1><br>';
 ?>
-    
 </body>
 </html>
