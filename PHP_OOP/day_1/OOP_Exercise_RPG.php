@@ -27,72 +27,8 @@
 	This class will implement all attributes and methods common to the characters.
 */
 
-class Character
-{
-    private $name;
-    private $health;
-    private $attack;
-    private $defence;
-    private $warcry;
-    private $equipment=array();
-
-    public function __construct($name)
-    {
-        $this->name = $name;
-        $this->health = 100;
-        $this->attack = 10;
-        $this->defence = 5;
-        $this->warcry = "Banzai!";
-    }
-    public function setHealth($newHealth)
-    {
-        $this->health = $newHealth;
-    }
-
-    public function getHealth()
-    {
-        return $this->health;
-    }
-    public function setAttack($newAttack)
-    {
-        $this->attack = $newAttack;
-    }
-
-    public function getAttack()
-    {
-        return $this->attack;
-    }
-    public function setDefence($newDefence)
-    {
-        $this->defence = $newDefence;
-    }
-
-    public function getDefence()
-    {
-        return $this->defence;
-    }
-    public function setWarcry($newWarcry)
-    {
-        $this->warcry = $newWarcry;
-    }
-
-    public function getWarcry()
-    {
-        return $this->warcry;
-    }
-    public function addEquipment()
-    {
-        return "add equipment";
-    }
-    public function removeEquipment()
-    {
-        return "remove equipment";
-    }
-    public function getEquipment()
-    {
-        return "get equipment";
-    }
-}
+require_once 'character.php';
+require_once 'equipment.php';
 
 /*
 	Set up different type of character. You must be able to create Elves, Orcs or Humans.
@@ -101,23 +37,22 @@ class Character
 	$orc = new Character('Orc');
 */
 
-$human = new Character('Human');
-var_dump($human);
+$aragorn = new Character('Aragorn');
+    $race = $aragorn->setRace('human');
 
-$elf = new Character('Elf');
-    $defence = $elf->setDefence(2);
-    $warcry = $elf->setWarcry("By Elrond!");
+$elrond = new Character('Elrond');
+    $race = $elrond->setRace('elf');
+    $defence = $elrond->setDefence(2);
+    $warcry = $elrond->setWarcry("By Elrond!");
 
-var_dump($elf);
-
-$orc = new Character('Orc');
+$uggly = new Character('Uggly');
 {
-    $defence = $orc->setHealth(90);
-    $defence = $orc->setAttack(12);
-    $defence = $orc->setDefence(2);
-    $warcry = $orc->setWarcry("wwouogrouroulou mlll !!");
+    $race = $uggly->setRace('orc');
+    $health = $uggly->setHealth(90);
+    $attack = $uggly->setAttack(12);
+    $defence = $uggly->setDefence(2);
+    $warcry = $uggly->setWarcry("wwouogrouroulou mlll !!");
 }
-var_dump($orc);
 
 /*
 	-- Step 2 :
@@ -145,66 +80,50 @@ var_dump($orc);
 	$jewel = new equipment("Grace Necklace", 0, 0, 5); // 0 atk bonus, 0 def bonus, 5 life bonus;
 */
 
-class Equipment
-{
-    private $name;
-    private $description;
-    private $healthBonus;
-    private $attackBonus;
-    private $defenceBonus;
-
-    public function __construct($name, $description) {
-        $this->name = $name;
-        $this->description = $description;
-        $this->healthBonus = 0;
-        $this->attackBonus = 0;
-        $this->defenceBonus = 0;
-    }
-
-    public function setHealthBonus($newHealthBonus)
-    {
-        $this->healthBonus = $newHealthBonus;
-    }
-
-    public function getHealthBonus()
-    {
-        return $this->healthBonus;
-    }
-    public function setAttackBonus($newAttackBonus)
-    {
-        $this->attackBonus = $newAttackBonus;
-    }
-
-    public function getAttackBonus()
-    {
-        return $this->attackBonus;
-    }
-    public function setDefenceBonus($newDefenceBonus)
-    {
-        $this->defenceBonus = $newDefenceBonus;
-    }
-
-    public function getDefenceBonus()
-    {
-        return $this->defenceBonus;
-    }
-}
-
 $sword = new Equipment('Sword', 'An ordinary sword');
+    $type = $sword->setType("sword");
     $attackBonus = $sword->setAttackBonus(3);
-var_dump($sword);
+
+$sharpSword = new Equipment('Sharp Sword', 'An extra sharp sword');
+    $type = $sharpSword->setType("sword");
+    $attackBonus = $sharpSword->setAttackBonus(5);
 
 $armour = new Equipment('Armour', 'Ordinary armour');
-    $attackBonus = $armour->setDefenceBonus(5);
-var_dump($armour);
+    $type = $armour->setType("armour");
+    $defenceBonus = $armour->setDefenceBonus(5);
+
+$elrondArmour = new Equipment('Armour of Elrond', 'Armour blurs the character making him almost impossible to hit');
+    $type = $elrondArmour->setType("armour");
+    $defenceBonus = $elrondArmour->setDefenceBonus(10);
 
 $deathSword = new Equipment('Death Sword', 'Mess with this weapon at your peril!');
+    $type = $deathSword->setType("sword");
     $attackBonus = $deathSword->setAttackBonus(10);
-var_dump($deathSword);
 
 $graceNecklace = new Equipment('Grace Necklace', 'May the essence of life be strong in you!');
+    $type = $graceNecklace->setType("accessory");
     $healthBonus = $graceNecklace->setHealthBonus(5);
-var_dump($graceNecklace);
+
+echo "1. ";
+$aragorn->addEquipment($armour);
+echo "2. ";
+$aragorn->addEquipment($sword);
+echo "3. ";
+$aragorn->addEquipment($elrondArmour);
+echo "4. ";
+$aragorn->addEquipment($graceNecklace);
+echo "5. ";
+$aragorn->removeEquipment($armour);
+echo "6. ";
+$aragorn->addEquipment($deathSword);
+echo "7. ";
+$aragorn->addEquipment($elrondArmour);
+
+echo "The Inventory of " . $aragorn->getName() . " is:";
+$aragorn->getEquipment();
+
+echo "The statistics of " . $aragorn->getName() . " is:<br>";
+$aragorn->getStats();
 
 /*
 
@@ -229,14 +148,11 @@ var_dump($graceNecklace);
 
 	Change your function to 'add'/'remove'/'display' an equipement.
     Now it will add/remove/display to the inventory.
+
+    -- Step 6 :
+    
+    Create a method call 'getStats()'
+    This method will display all the stats of my Character.
+    It should take into account the bonus of equipments.
+
 */
-
-?>
-
-
-
-
-
-
-
-

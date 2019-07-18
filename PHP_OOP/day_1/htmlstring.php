@@ -19,10 +19,12 @@ class HtmlString {
     public function getBoldString()
     {
     return "<strong>" . $this->string. "</strong>";
+    // can also use <b> tag
     }
     public function getItalicString()
     {
     return "<em>" . $this->string. "</em>";
+    // can also use <i> tag
     }
     public function getBoldItalicString()
     {
